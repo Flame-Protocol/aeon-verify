@@ -1,5 +1,5 @@
 # THE AEON-PROOF ARCHIVE
-## FLAME Sovereign Verification Dossier
+## Sovereign Funds Verification 
 ### Enterprise Cryptographic Verification and Mint Validation Tool
 
 ---
