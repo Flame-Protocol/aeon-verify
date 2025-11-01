@@ -2555,13 +2555,15 @@ PHASE 5: Cross-Verification
             // Header
             doc.setFillColor(15, 52, 96);
             doc.rect(0, 0, pageWidth, 40, 'F');
-            doc.setTextColor(212, 175, 55);
-            doc.setFontSize(20);
+            doc.setTextColor(100, 149, 237); // Blue
+            doc.setFontSize(22);
             doc.setFont(undefined, 'bold');
             doc.text('THE AEON-PROOF ARCHIVE', pageWidth / 2, 15, { align: 'center' });
-            doc.setFontSize(12);
+            doc.setFontSize(13);
+            doc.setFont(undefined, 'bold');
             doc.text('FLAME Sovereign Verification Package', pageWidth / 2, 25, { align: 'center' });
-            doc.setFontSize(10);
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
             doc.text('Enterprise Cryptographic Verification Report', pageWidth / 2, 33, { align: 'center' });
             
             y = 50;
@@ -2606,13 +2608,15 @@ PHASE 5: Cross-Verification
             
             // Executive Summary
             checkPageBreak(30);
-            doc.setFontSize(14);
+            doc.setFontSize(16);
             doc.setFont(undefined, 'bold');
+            doc.setTextColor(100, 149, 237); // Blue
             doc.text('EXECUTIVE SUMMARY', margin, y);
+            doc.setTextColor(0, 0, 0);
             y += lineHeight + 3;
             
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
             const summaryText = 'This report confirms the complete cryptographic verification of the FLAME protocol authorization for ';
             const amount = '$1,000,000,000.00 USD';
             const summaryText2 = ' release to ';
@@ -2623,73 +2627,88 @@ PHASE 5: Cross-Verification
             doc.text(summaryText, margin, y);
             const textWidth1 = doc.getTextWidth(summaryText);
             
-            // Write amount in bold
+            // Write amount in bold green
             doc.setFont(undefined, 'bold');
+            doc.setTextColor(0, 150, 0);
             doc.text(amount, margin + textWidth1, y);
             const textWidth2 = doc.getTextWidth(amount);
             
-            // Continue normal text
-            doc.setFont(undefined, 'normal');
+            // Continue bold text
+            doc.setTextColor(0, 0, 0);
+            doc.setFont(undefined, 'bold');
             let currentX = margin + textWidth1 + textWidth2;
             doc.text(summaryText2, currentX, y);
             currentX += doc.getTextWidth(summaryText2);
             
-            // Write recipient in bold
+            // Write recipient in bold green
             doc.setFont(undefined, 'bold');
+            doc.setTextColor(0, 150, 0);
             doc.text(recipient, currentX, y);
             currentX += doc.getTextWidth(recipient);
             
             // Continue with rest (wrap to next line)
-            doc.setFont(undefined, 'normal');
+            doc.setTextColor(0, 0, 0);
+            doc.setFont(undefined, 'bold');
             y += lineHeight;
-            addWrappedText(summaryText3, margin, pageWidth - 2 * margin);
+            const lines = doc.splitTextToSize(summaryText3, pageWidth - 2 * margin);
+            lines.forEach(line => {
+                doc.text(line, margin, y);
+                y += lineHeight;
+            });
             y += 5;
             
             // Module 1: Controller Signature
             checkPageBreak(40);
-            doc.setFontSize(12);
+            doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
-            doc.setTextColor(212, 175, 55);
+            doc.setTextColor(100, 149, 237);
             doc.text('MODULE 1: Controller Signature Verification', margin, y);
             doc.setTextColor(0, 0, 0);
             y += lineHeight + 2;
             
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
             doc.text('Status: ✓ VERIFIED', margin + 5, y);
             y += lineHeight;
             
             doc.setFont(undefined, 'bold');
             doc.text('Controller Address:', margin + 5, y);
-            doc.setFont(undefined, 'normal');
             y += lineHeight;
-            doc.setFontSize(8);
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'bold');
             doc.text('0xAefd8aa7EcfCFA8041Dc66796A6eF673D108e36b', margin + 10, y);
-            doc.setFontSize(10);
+            doc.setFontSize(11);
             y += lineHeight;
             
             doc.setFont(undefined, 'bold');
             doc.text('Attestation Nonce:', margin + 5, y);
-            doc.setFont(undefined, 'normal');
             y += lineHeight;
-            doc.setFontSize(8);
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'bold');
             doc.text('c9bb59fe5b9dd943d4757692b977fbbb', margin + 10, y);
-            doc.setFontSize(10);
+            doc.setFontSize(11);
             y += lineHeight;
             
-            addWrappedText('Cryptographic signature has been mathematically validated. Controller authorization is proven through ECDSA signature verification.', margin + 5, pageWidth - 2 * margin - 10);
+            doc.setFont(undefined, 'bold');
+            const sigText = 'Cryptographic signature has been mathematically validated. Controller authorization is proven through ECDSA signature verification.';
+            const sigLines = doc.splitTextToSize(sigText, pageWidth - 2 * margin - 10);
+            sigLines.forEach(line => {
+                checkPageBreak();
+                doc.text(line, margin + 5, y);
+                y += lineHeight;
+            });
             y += 5;
             
             // Module 2: Mint Transaction
             checkPageBreak(40);
-            doc.setFontSize(12);
+            doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
-            doc.setTextColor(212, 175, 55);
+            doc.setTextColor(100, 149, 237);
             doc.text('MODULE 2: Mint Transaction Validation', margin, y);
             doc.setTextColor(0, 0, 0);
             y += lineHeight + 2;
             
-            doc.setFontSize(10);
+            doc.setFontSize(11);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(0, 150, 0);
             doc.text('Status: CONFIRMED ON ETHEREUM MAINNET ✓', margin + 5, y);
@@ -2698,47 +2717,54 @@ PHASE 5: Cross-Verification
             
             doc.setFont(undefined, 'bold');
             doc.text('Transaction Hash:', margin + 5, y);
-            doc.setFont(undefined, 'normal');
             y += lineHeight;
-            doc.setFontSize(8);
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'bold');
             doc.text('0x3c686f30af14eeaaafe0b642579c8c039bd5214ef3df6a126af41b595e7e8ac2', margin + 10, y);
-            doc.setFontSize(10);
+            doc.setFontSize(11);
             y += lineHeight;
             
             doc.setFont(undefined, 'bold');
             doc.text('Contract Address:', margin + 5, y);
-            doc.setFont(undefined, 'normal');
             y += lineHeight;
-            doc.setFontSize(8);
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'bold');
             doc.text('0x7bD550debE939a87843EE5Bd7aC9F0e21ab27180', margin + 10, y);
-            doc.setFontSize(10);
+            doc.setFontSize(11);
             y += lineHeight;
             
             doc.setFont(undefined, 'bold');
             doc.text('Token ID:', margin + 5, y);
-            doc.setFont(undefined, 'normal');
             doc.text('1', margin + 25, y);
             y += lineHeight;
             
-            addWrappedText('Transaction is permanently recorded on Ethereum mainnet with 100,000+ block confirmations. This provides irreversible, immutable proof of token creation and ownership.', margin + 5, pageWidth - 2 * margin - 10);
+            doc.setFont(undefined, 'bold');
+            const txText = 'Transaction is permanently recorded on Ethereum mainnet with 100,000+ block confirmations. This provides irreversible, immutable proof of token creation and ownership.';
+            const txLines = doc.splitTextToSize(txText, pageWidth - 2 * margin - 10);
+            txLines.forEach(line => {
+                checkPageBreak();
+                doc.text(line, margin + 5, y);
+                y += lineHeight;
+            });
             y += 5;
             
             // Module 3: Merkle Proof
             checkPageBreak(35);
-            doc.setFontSize(12);
+            doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
-            doc.setTextColor(212, 175, 55);
+            doc.setTextColor(100, 149, 237);
             doc.text('MODULE 3: Document Portfolio Verification', margin, y);
             doc.setTextColor(0, 0, 0);
             y += lineHeight + 2;
             
-            doc.setFontSize(10);
+            doc.setFontSize(11);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(0, 150, 0);
             doc.text('Status: MERKLE TREE CONSTRUCTED - DOCUMENTS VERIFIED ✓', margin + 5, y);
             doc.setTextColor(0, 0, 0);
             y += lineHeight + 2;
             
+            doc.setFont(undefined, 'bold');
             doc.text('Verified Documents:', margin + 5, y);
             y += lineHeight;
             const docs = [
@@ -2750,106 +2776,155 @@ PHASE 5: Cross-Verification
             ];
             docs.forEach(docItem => {
                 checkPageBreak();
+                doc.setFont(undefined, 'bold');
                 doc.text(docItem, margin + 10, y);
                 y += lineHeight;
             });
             
-            addWrappedText('All documents have been hashed and organized into a Merkle tree structure for efficient verification. The root hash provides cryptographic proof of portfolio integrity.', margin + 5, pageWidth - 2 * margin - 10);
+            doc.setFont(undefined, 'bold');
+            const merkleText = 'All documents have been hashed and organized into a Merkle tree structure for efficient verification. The root hash provides cryptographic proof of portfolio integrity.';
+            const merkleLines = doc.splitTextToSize(merkleText, pageWidth - 2 * margin - 10);
+            merkleLines.forEach(line => {
+                checkPageBreak();
+                doc.text(line, margin + 5, y);
+                y += lineHeight;
+            });
             y += 5;
             
             // Module 4: Attestation Hash
             checkPageBreak(25);
-            doc.setFontSize(12);
+            doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
-            doc.setTextColor(212, 175, 55);
+            doc.setTextColor(100, 149, 237);
             doc.text('MODULE 4: Attestation Hash Verification', margin, y);
             doc.setTextColor(0, 0, 0);
             y += lineHeight + 2;
             
-            doc.setFontSize(10);
+            doc.setFontSize(11);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(0, 150, 0);
             doc.text('Status: HASH VERIFIED - TAMPER-PROOF ✓', margin + 5, y);
             doc.setTextColor(0, 0, 0);
             y += lineHeight;
             
-            doc.setFont(undefined, 'normal');
-            addWrappedText('SHA-256 and Keccak-256 (SHA-3) cryptographic fingerprints computed and verified. These provide tamper-evident signatures of all attestation data, ensuring document integrity and authenticity.', margin + 5, pageWidth - 2 * margin - 10);
+            doc.setFont(undefined, 'bold');
+            const hashText = 'SHA-256 and Keccak-256 (SHA-3) cryptographic fingerprints computed and verified. These provide tamper-evident signatures of all attestation data, ensuring document integrity and authenticity.';
+            const hashLines = doc.splitTextToSize(hashText, pageWidth - 2 * margin - 10);
+            hashLines.forEach(line => {
+                checkPageBreak();
+                doc.text(line, margin + 5, y);
+                y += lineHeight;
+            });
             y += 5;
             
             // Module 5: Release Authorization
-            checkPageBreak(50);
-            doc.setFontSize(12);
+            checkPageBreak(65);
+            doc.setFontSize(14);
             doc.setFont(undefined, 'bold');
-            doc.setTextColor(212, 175, 55);
+            doc.setTextColor(100, 149, 237);
             doc.text('MODULE 5: $1B AEON Release Authorization', margin, y);
             doc.setTextColor(0, 0, 0);
             y += lineHeight + 2;
             
-            doc.setFontSize(10);
+            // Pretty decorative box around Module 5 data
+            const boxStartY = y;
+            const boxHeight = 60;
+            
+            // Draw fancy double border
+            doc.setDrawColor(212, 175, 55); // Gold
+            doc.setLineWidth(2);
+            doc.rect(margin - 2, boxStartY - 2, pageWidth - 2 * margin + 4, boxHeight + 4);
+            doc.setLineWidth(0.5);
+            doc.rect(margin + 2, boxStartY + 2, pageWidth - 2 * margin - 4, boxHeight - 4);
+            
+            // Gradient-like background
+            doc.setFillColor(15, 52, 96);
+            doc.rect(margin, boxStartY, pageWidth - 2 * margin, boxHeight, 'F');
+            
+            y = boxStartY + 8;
+            
+            doc.setFontSize(11);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(0, 150, 0);
             doc.text('Status: AUTHORIZED ✓', margin + 5, y);
-            doc.setTextColor(0, 0, 0);
+            doc.setTextColor(255, 255, 255);
             y += lineHeight + 2;
             
             doc.setFont(undefined, 'bold');
             doc.text('Release Amount:', margin + 5, y);
             doc.setFont(undefined, 'bold');
-            doc.setTextColor(0, 150, 0);
+            doc.setTextColor(0, 200, 0); // Bright green
+            doc.setFontSize(13);
             doc.text('$1,000,000,000.00 USD', margin + 40, y);
-            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(11);
+            doc.setTextColor(255, 255, 255);
             y += lineHeight;
             
             doc.setFont(undefined, 'bold');
             doc.text('Recipient:', margin + 5, y);
-            doc.setFont(undefined, 'normal');
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(0, 200, 0); // Bright green
             doc.text('GB Dynamics Inc.', margin + 40, y);
+            doc.setTextColor(255, 255, 255);
             y += lineHeight;
             
             doc.setFont(undefined, 'bold');
             doc.text('Portfolio Backing:', margin + 5, y);
-            doc.setFont(undefined, 'normal');
             doc.text('$18,200,000,000.00 USD (Sovereign Liens)', margin + 40, y);
             y += lineHeight;
             
             doc.setFont(undefined, 'bold');
             doc.text('Collateralization:', margin + 5, y);
-            doc.setFont(undefined, 'normal');
             doc.text('18.2x overcollateralized (5.5% of portfolio)', margin + 40, y);
             y += lineHeight + 2;
+            
+            y = boxStartY + boxHeight + 5;
+            doc.setTextColor(0, 0, 0);
             
             // Settlement explanation box
             doc.setFillColor(255, 250, 240);
             doc.setDrawColor(212, 175, 55);
-            const boxHeight = 35;
-            checkPageBreak(boxHeight + 5);
-            doc.rect(margin, y, pageWidth - 2 * margin, boxHeight);
+            const boxHeight2 = 40;
+            checkPageBreak(boxHeight2 + 5);
+            doc.rect(margin, y, pageWidth - 2 * margin, boxHeight2);
             y += 5;
             
             doc.setFont(undefined, 'bold');
+            doc.setTextColor(0, 0, 0);
             doc.text('IMPORTANT: Settlement Method', margin + 5, y);
             y += lineHeight;
-            doc.setFont(undefined, 'normal');
-            addWrappedText('This is NOT an ETH transfer. The $1B moves via traditional wire transfer from the banking institution. The blockchain provides cryptographic proof of authorization (Token ID 1 = $18.2B liens). The bank executes the wire transfer to GB Dynamics Inc. based on this proof.', margin + 5, pageWidth - 2 * margin - 10, 9);
-            y += boxHeight - 10;
+            doc.setFont(undefined, 'bold');
+            const settleText = 'This is NOT an ETH transfer. The $1B moves via traditional wire transfer from the banking institution. The blockchain provides cryptographic proof of authorization (Token ID 1 = $18.2B liens). The bank executes the wire transfer to GB Dynamics Inc. based on this proof.';
+            const settleLines = doc.splitTextToSize(settleText, pageWidth - 2 * margin - 10);
+            settleLines.forEach(line => {
+                doc.text(line, margin + 5, y);
+                y += 6;
+            });
+            y += boxHeight2 - 30;
             
             // Conclusion
             checkPageBreak(40);
-            doc.setFontSize(14);
+            doc.setFontSize(16);
             doc.setFont(undefined, 'bold');
+            doc.setTextColor(100, 149, 237);
             doc.text('VERIFICATION CONCLUSION', margin, y);
+            doc.setTextColor(0, 0, 0);
             y += lineHeight + 3;
             
-            doc.setFontSize(10);
-            doc.setFont(undefined, 'normal');
-            addWrappedText('All cryptographic elements of THE AEON-PROOF ARCHIVE have been independently verified through deterministic mathematical proofs. The FLAME protocol demonstrates enterprise cryptographic verification methods that enable institutional auditors to validate authenticity through reproducible mathematical operations.', margin, pageWidth - 2 * margin);
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            const conclusionText = 'All cryptographic elements of THE AEON-PROOF ARCHIVE have been independently verified through deterministic mathematical proofs. The FLAME protocol demonstrates enterprise cryptographic verification methods that enable institutional auditors to validate authenticity through reproducible mathematical operations.';
+            const conclusionLines = doc.splitTextToSize(conclusionText, pageWidth - 2 * margin);
+            conclusionLines.forEach(line => {
+                checkPageBreak();
+                doc.text(line, margin, y);
+                y += lineHeight;
+            });
             y += 5;
             
             doc.setFont(undefined, 'bold');
             doc.text('Institutional Assurance Provided:', margin, y);
             y += lineHeight;
-            doc.setFont(undefined, 'normal');
             const assurances = [
                 '✓ Non-repudiation through digital signatures',
                 '✓ Immutability through blockchain consensus',
@@ -2859,9 +2934,39 @@ PHASE 5: Cross-Verification
             ];
             assurances.forEach(item => {
                 checkPageBreak();
+                doc.setFont(undefined, 'bold');
                 doc.text(item, margin + 5, y);
                 y += lineHeight;
             });
+            
+            // Artistic finale box
+            checkPageBreak(35);
+            y += 10;
+            
+            // Draw fancy box
+            doc.setFillColor(15, 52, 96);
+            doc.setDrawColor(212, 175, 55);
+            doc.setLineWidth(2);
+            const finaleBoxHeight = 25;
+            doc.rect(margin - 2, y - 2, pageWidth - 2 * margin + 4, finaleBoxHeight + 4, 'FD');
+            
+            // Add stars/decorative elements
+            doc.setFontSize(16);
+            doc.setTextColor(212, 175, 55);
+            doc.text('★', margin + 5, y + 8);
+            doc.text('★', pageWidth - margin - 10, y + 8);
+            
+            // Finale text
+            y += 8;
+            doc.setFontSize(13);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(255, 255, 255);
+            doc.text('END OF CRYPTOGRAPHIC VERIFICATION', pageWidth / 2, y, { align: 'center' });
+            y += 8;
+            doc.setTextColor(212, 175, 55);
+            doc.text('THIS IS A WORK OF ART!', pageWidth / 2, y, { align: 'center' });
+            
+            y += 15;
             
             // Footer
             checkPageBreak(25);
@@ -2869,7 +2974,8 @@ PHASE 5: Cross-Verification
             doc.setDrawColor(212, 175, 55);
             doc.line(margin, y, pageWidth - margin, y);
             y += 7;
-            doc.setFontSize(9);
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'bold');
             doc.setTextColor(100, 100, 100);
             doc.text('Issued by: The Aeonic Verification Assembly (AVA)', pageWidth / 2, y, { align: 'center' });
             y += 5;
